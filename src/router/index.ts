@@ -10,12 +10,7 @@ const { isAuthenticated } = useAuth(); //
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: Home,
-      beforeEnter: auth
-    },
+
     {
       path: '/login',
       name: 'login',
@@ -39,7 +34,13 @@ const router = createRouter({
           next();
         }
       }
-    }
+    },
+    {
+      path: '/',
+      name: 'home',
+      component: Home,
+      beforeEnter: auth
+    },
   ]
 })
 

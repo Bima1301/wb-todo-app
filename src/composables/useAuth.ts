@@ -1,20 +1,22 @@
 import { onMounted, ref } from 'vue';
-import axios from 'axios';
 import { useRouter } from 'vue-router';
+import api from '@/utils/axios-interceptor';
 
 export function useAuth() {
      const token = ref<string | null>(localStorage.getItem('authToken'));
+     const currentUser = ref<any>(null);
      const error = ref<string | null>(null);
      const router = useRouter();
 
      const validateToken = async () => {
           try {
-               const response = await axios.get(`${import.meta.env.VITE_API_URL}/auth/me`, {
+               const response = await api.get(`/auth/me`, {
                     headers: {
                          Authorization: `Bearer ${token.value}`
                     }
                });
                if (response.data.meta.message == 'User found') {
+                    currentUser.value = response.data.data;
                     return true;
                } else {
                     localStorage.removeItem('authToken');
@@ -33,28 +35,33 @@ export function useAuth() {
           if (token.value) {
                await validateToken();
           } else {
-               router.push('/login');
+               if (router.currentRoute.value.path != '/login' && router.currentRoute.value.path != '/register') {
+                    router.push('/login');
+               }
           }
      });
 
 
      const login = async (email: string, password: string) => {
-          try {
-               const response = await axios.post(`${import.meta.env.VITE_API_URL}/auth/login`, { email, password });
-               token.value = response.data.data.token
-               localStorage.setItem('authToken', token.value as string);
-               error.value = null;
-               router.push('/');
-          } catch (err) {
-               error.value = 'Login failed. Please check your credentials.';
-               console.error(err);
-          }
+          const response = await api.post(`/auth/login`, { email, password });
+          token.value = response.data.data.token
+          localStorage.setItem('authToken', token.value as string);
+          console.log('login', response.data.data);
+          currentUser.value = response.data.data.user;
      };
+
+     const register = async (name: string, email: string, password: string) => {
+          const response = await api.post(`/auth/signup`, { name, email, password });
+          token.value = response.data.data.token
+          localStorage.setItem('authToken', token.value as string);
+          currentUser.value = response.data.data;
+     }
 
      const logout = () => {
           token.value = null;
+          currentUser.value = null;
           localStorage.removeItem('authToken');
-          router.push('/login');
+          window.location.href = '/';
      };
 
      const isAuthenticated = () => {
@@ -65,7 +72,9 @@ export function useAuth() {
           token,
           error,
           login,
+          register,
           logout,
-          isAuthenticated
+          isAuthenticated,
+          currentUser
      };
 }

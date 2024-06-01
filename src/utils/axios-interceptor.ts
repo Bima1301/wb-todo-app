@@ -1,7 +1,15 @@
-import router from '@/router';
-import axios from 'axios';
-axios.interceptors.request.use(
-     (config) => {
+import router from "@/router";
+import axios, { type InternalAxiosRequestConfig } from "axios";
+
+const api = axios.create({
+     baseURL: import.meta.env.VITE_API_URL,
+     headers: {
+          'Content-Type': 'application/json',
+     },
+})
+
+api.interceptors.request.use(
+     (config: InternalAxiosRequestConfig) => {
           const token = localStorage.getItem('authToken');
           if (token) {
                config.headers.Authorization = `Bearer ${token}`;
@@ -13,19 +21,16 @@ axios.interceptors.request.use(
      }
 );
 
-axios.interceptors.response.use(
+api.interceptors.response.use(
      (response) => {
           return response;
      },
      (error) => {
-          // Handle token expiration or other global errors here
           if (error.response && error.response.status === 401) {
-               // Optionally, you can log out the user or redirect to login page
                localStorage.removeItem('authToken');
-               router.push('/login');
           }
           return Promise.reject(error);
      }
 );
 
-export default axios;
+export default api;
