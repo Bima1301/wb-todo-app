@@ -190,6 +190,7 @@ const handleFilter = (type: string) => {
 const { logout } = useAuth();
 
 const handleGetAllTodos = async () => {
+  $toast.info("Loading...");
   const body = {
     params: {
       page: page.value,
@@ -227,6 +228,8 @@ const handleGetAllTodos = async () => {
     .catch((error) => {
       console.log(error);
     });
+
+  $toast.clear();
 };
 
 onMounted(() => {
