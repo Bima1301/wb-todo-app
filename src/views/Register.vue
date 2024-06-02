@@ -1,4 +1,5 @@
 <template>
+  <Header  />
   <div class="sm:min-w-[500px]">
     <p class="text-center text-2xl font-semibold text-white mb-5">Register</p>
     <form @submit.prevent="register" class="flex flex-col text-gray-700 dark:text-gray-400">
@@ -67,12 +68,16 @@
 import { Icon } from '@iconify/vue';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { useAuth } from '../composables/useAuth';
 import { useToast } from 'vue-toast-notification';
+import { useUserStore } from '@/stores/user-store';
+import Header from '@/components/Header.vue';
 
 const $toast = useToast({
   position: 'top-right',
 });
+
+
+const { register: registerUser } = useUserStore();
 
 const router = useRouter();
 
@@ -88,7 +93,6 @@ const showConfirmPassword = ref(false);
 
 const errors = ref<any>([]);
 
-const { register: registerUser } = useAuth();
 
 const register = async () => {
 

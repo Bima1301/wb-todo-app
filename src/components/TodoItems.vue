@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white dark:bg-gray-800 dark:border-gray-800 py-3 px-5 shadow-md flex flex-row items-center justify-between min-h-[58px]">
+  <div class="bg-white dark:bg-gray-800 dark:border-gray-800 py-4 px-5 shadow-md flex flex-row items-center justify-between min-h-[58px]">
     <div class="flex flex-row gap-5 items-center w-full">
       <button
         class="p-1 rounded-full dark:border-gray-600 border-gray-300 border-[2px]"

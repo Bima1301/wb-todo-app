@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <Header />
     <form
       @submit.prevent="handleTodoCreate"
       class="text-gray-700 dark:text-gray-300"
@@ -40,7 +40,18 @@
       </div>
     </form>
     <div class="flex flex-col mt-8 text-gray-700 dark:text-gray-300 divide-y dark:divide-gray-600 shadow-lg rounded overflow-hidden">
-      <TodoItems
+      <div v-if="data.length == 0" class="bg-white dark:bg-gray-800 dark:border-gray-800 py-5 px-5 shadow-md min-h-[58px] flex flex-col justify-center items-center">
+        <img
+          src="/images/no-data.png"
+          alt="empty"
+          class="w-1/2 max-w-[100px]"
+        />
+      <p class="mt-3 font-medium dark:text-gray-400 text-gray-600 md:text-sm text-xs">
+        No data found
+      </p>
+      </div>
+
+        <TodoItems
         v-for="(item, index) in data"
         :key="index"
         :todo="item"
@@ -58,22 +69,37 @@
         @paginate="handlePagination"
       />
     </div>
-    <button @click="logout">Logout</button>
-  </div>
+    <div class="mt-5 flex flex-row justify-between items-center">
+      <div class="rounded-full md:max-w-[300px] max-w-[230px] border-2 dark:border-gray-400 border-gray-500 flex flex-row gap-2 items-center py-2 px-3 text-sm dark:text-gray-400 text-gray-500">
+        <Icon icon="gravity-ui:magnifier" class="text-lg" />
+        <input v-model="searchQuery" @input="debouncedSearch" type="text" placeholder="Search..." class="focus:outline-none bg-transparent focus:border-none border-none w-fit md:max-w-[200px] max-w-[130px]">
+      </div>
+      <button
+        class="w-fit md:text-sm text-xs bg-blue-500 bg-opacity-30 border-violet-600 border-2 rounded-full text-black dark:text-white font-semibold hover:translate-y-2 transition-all duration-200 py-2 px-8"
+        @click="logout"
+      >
+        LOGOUT
+      </button>
+    </div>
 </template>
 
 <script setup lang="ts">
 import { Icon } from "@iconify/vue";
 import { onMounted, ref, toRaw } from "vue";
-import { useAuth } from "../composables/useAuth";
 import api from "../utils/axios-interceptor";
 import TodoItems from "../components/TodoItems.vue";
 import { useToast } from "vue-toast-notification";
 import PaginationAndFilter from "../components/PaginationAndFilter.vue";
+import { debounce } from "lodash";
+import { useUserStore } from "@/stores/user-store";
+import Header from "@/components/Header.vue";
 
 const $toast = useToast({
   position: "top-right",
 });
+
+const {logout} = useUserStore();
+
 
 const title = ref<string>("");
 const isCheck = ref<boolean>(false);
@@ -84,6 +110,7 @@ const totalData = ref<number>(0);
 const totalDataLeft = ref<number>(0);
 const totalPage = ref<number>(0);
 const filter = ref<string>('all');
+const searchQuery = ref<string>("");
 
 const handleCheck = () => {
   isCheck.value = !isCheck.value;
@@ -187,7 +214,12 @@ const handleFilter = (type: string) => {
   handleGetAllTodos();
 };
 
-const { logout } = useAuth();
+const handleSearch = () => {
+  handleGetAllTodos();
+};
+
+// Wrap the search handler with debounce
+const debouncedSearch = debounce(handleSearch, 300);
 
 const handleGetAllTodos = async () => {
   $toast.info("Loading...");
@@ -196,7 +228,7 @@ const handleGetAllTodos = async () => {
       page: page.value,
       pageSize: 5,
       searchFilters: {
-        title: "",
+        title: searchQuery.value,
       },
       orderBy: {
         field: "created_at",

@@ -1,4 +1,5 @@
 <template>
+  <Header />
   <div>
     <p class="text-center text-2xl font-semibold text-white mb-5">Login</p>
     <form
@@ -63,9 +64,10 @@
 <script setup lang="ts">
 import { Icon } from "@iconify/vue";
 import { ref } from "vue";
-import { useAuth } from "../composables/useAuth";
 import { useToast } from "vue-toast-notification";
 import { useRouter } from "vue-router";
+import { useUserStore } from "@/stores/user-store";
+import Header from "@/components/Header.vue";
 
 const $toast = useToast({
   position: "top-right",
@@ -77,7 +79,7 @@ const email = ref<string>("");
 const password = ref<string>("");
 const showPassword = ref(false);
 
-const { login: loginUser } = useAuth();
+const {login: loginUser } = useUserStore();
 
 const login = async () => {
   loading.value = true;

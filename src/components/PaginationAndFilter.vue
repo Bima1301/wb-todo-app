@@ -1,9 +1,9 @@
 <template>
   <div class="flex justify-between bg-white dark:bg-gray-800 dark:border-gray-800 py-1 px-5 items-center">
-    <p class="text-sm text-gray-400 dark:text-gray-300 font-medium">
+    <p class="md:text-sm text-xs text-gray-400 dark:text-gray-300 font-medium">
       {{ totalDataLeft }} items left
     </p>
-    <div class="flex gap-2 text-sm font-medium dark:text-gray-600 text-gray-300">
+    <div class="flex md:gap-2 gap-1 md:text-sm text-xs font-medium dark:text-gray-600 text-gray-300 items-center">
         <button
           @click="$emit('filter', 'all')"
           :class="filter === 'all' ? 'font-bold dark:text-gray-300 text-gray-600' : ''"
@@ -36,7 +36,7 @@
       </button>
       <button
         @click="$emit('paginate', 'next')"
-        :disabled="page === totalPage"
+        :disabled="page === totalPage || totalPage === 0"
         class="p-1 hover:rounded-full hover:bg-black/10 disabled:opacity-50 disabled:cursor-not-allowed"
       >
         <Icon

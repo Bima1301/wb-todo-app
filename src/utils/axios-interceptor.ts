@@ -1,4 +1,3 @@
-import router from "@/router";
 import axios, { type InternalAxiosRequestConfig } from "axios";
 
 const api = axios.create({
