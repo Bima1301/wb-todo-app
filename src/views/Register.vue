@@ -4,7 +4,7 @@
     <form @submit.prevent="register" class="flex flex-col text-gray-700 dark:text-gray-400">
       
       <div class="mb-3">
-        <div class="bg-white dark:bg-gray-800 dark:border-gray-800 border rounded py-5 px-5 shadow-md flex flex-row justify-between items-center">
+        <div class="bg-white dark:bg-gray-800 dark:border-gray-800 border rounded md:py-5 py-3 md:px-5 px-3 md:text-base text-sm shadow-md flex flex-row justify-between items-center">
           <input v-model="name" type="text" class="focus:outline-none bg-transparent focus:border-none border-none  w-full" placeholder="Name">
           <div class="p-2">
             <Icon icon="icon-park-solid:edit-name" class="text-gray-400 text-xl"/>
@@ -16,7 +16,7 @@
       </div>
 
       <div class="mb-3">
-      <div class="bg-white dark:bg-gray-800 dark:border-gray-800 border rounded py-5 px-5 shadow-md flex flex-row justify-between items-center">
+      <div class="bg-white dark:bg-gray-800 dark:border-gray-800 border rounded md:py-5 py-3 md:px-5 px-3 md:text-base text-sm shadow-md flex flex-row justify-between items-center">
         <input v-model="email" type="text" class="focus:outline-none bg-transparent focus:border-none border-none  w-full" placeholder="Email">
         <div class="p-2">
           <Icon icon="mage:email-fill" class="text-gray-400 text-xl"/>
@@ -28,7 +28,7 @@
       </div>
       
       <div class="mb-3">
-      <div class="bg-white dark:bg-gray-800 dark:border-gray-800 border rounded py-5 px-5 shadow-md flex flex-row justify-between items-center">
+      <div class="bg-white dark:bg-gray-800 dark:border-gray-800 border rounded md:py-5 py-3 md:px-5 px-3 md:text-base text-sm shadow-md flex flex-row justify-between items-center">
         <input v-model="password" :type="showPassword ? 'text':'password' " class="focus:outline-none bg-transparent focus:border-none border-none  w-full" placeholder="Password">
         <button type="button" class="p-2 hover:rounded-full hover:bg-black/10" @click="handleShowPassword(false)">
           <Icon v-if="showPassword"  icon="iconoir:eye-solid" class="text-gray-400 text-xl"/>
@@ -41,7 +41,7 @@
       </div>
 
       <div class="mb-3">
-      <div class="bg-white dark:bg-gray-800 dark:border-gray-800 border rounded py-5 px-5 shadow-md flex flex-row justify-between items-center">
+      <div class="bg-white dark:bg-gray-800 dark:border-gray-800 border rounded md:py-5 py-3 md:px-5 px-3 md:text-base text-sm shadow-md flex flex-row justify-between items-center">
         <input v-model="confirmPassword" :type="showConfirmPassword ? 'text':'password' " class="focus:outline-none bg-transparent focus:border-none border-none  w-full" placeholder="Confirm Password">
         <button type="button" class="p-2 hover:rounded-full hover:bg-black/10" @click="handleShowPassword(true)">
           <Icon v-if="showConfirmPassword"  icon="iconoir:eye-solid" class="text-gray-400 text-xl"/>
@@ -56,7 +56,7 @@
       <button type="submit" class="w-full p-3 bg-blue-500 bg-opacity-30 border-violet-600 border-2 rounded-md text-black dark:text-white font-semibold mt-8 hover:translate-y-2 transition-all duration-200">
         REGISTER
       </button>
-      <p class="mt-5">
+      <p class="mt-5 md:text-base text-sm">
         Already have an account? <router-link to="/login" class="text-blue-500 hover:underline">Login</router-link>
       </p>
     </form>

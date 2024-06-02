@@ -5,7 +5,7 @@
       @submit.prevent="login"
       class="flex flex-col  text-gray-700 dark:text-gray-300"
     >
-      <div class="bg-white dark:bg-gray-800 dark:border-gray-800 border rounded py-5 px-5 shadow-md flex flex-row justify-between items-center mb-3">
+      <div class="bg-white dark:bg-gray-800 dark:border-gray-800 border rounded md:py-5 py-3 md:px-5 px-3 md:text-base text-sm shadow-md flex flex-row justify-between items-center mb-3">
         <input
           v-model="email"
           type="text"
@@ -19,7 +19,7 @@
           />
         </div>
       </div>
-      <div class="bg-white dark:bg-gray-800 dark:border-gray-800 border rounded py-5 px-5 shadow-md flex flex-row justify-between items-center">
+      <div class="bg-white dark:bg-gray-800 dark:border-gray-800 border rounded md:py-5 py-3 md:px-5 px-3 md:text-base text-sm shadow-md flex flex-row justify-between items-center">
         <input
           v-model="password"
           :type="showPassword ? 'text':'password' "
@@ -50,7 +50,7 @@
       >
         LOGIN
       </button>
-      <p class="mt-5">
+      <p class="mt-5 md:text-base text-sm">
         Don't have an account? <router-link
           to="/register"
           class="text-blue-500 hover:underline"
