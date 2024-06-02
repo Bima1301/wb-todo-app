@@ -8,12 +8,12 @@
             >
               <Icon
                 v-if="isDark"
-                icon="line-md:sun-rising-filled-loop"
+                icon="line-md:moon-filled-loop"
                 class="text-4xl"
               />
               <Icon
                 v-else
-                icon="line-md:moon-filled-loop"
+                icon="line-md:sun-rising-filled-loop"
                 class="text-4xl"
               />
             </button>

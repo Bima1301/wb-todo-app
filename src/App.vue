@@ -13,7 +13,7 @@ const isDark = useDark({
     class="absolute object-cover w-full h-[35%] dark:brightness-50"
     />
     <div class="w-full h-[35%] absolute top-0 left-0 bg-gradient-to-r from-violet-500/40 to-blue-500/40 dark:brightness-75" />
-    <div class="relative w-full flex justify-center md:pt-44 pt-20">
+    <div class="relative w-full flex justify-center md:pt-44 pt-20 pb-10">
       <div class="flex flex-col gap-5 w-full md:max-w-2xl px-5">
         <RouterView />
       </div>

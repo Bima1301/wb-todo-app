@@ -39,7 +39,7 @@
         </button>
       </div>
     </form>
-    <div class="flex flex-col mt-8 text-gray-700 dark:text-gray-300 divide-y dark:divide-gray-600 shadow-lg rounded overflow-hidden">
+    <div class="flex flex-col md:mt-8 mt-4 text-gray-700 dark:text-gray-300 divide-y dark:divide-gray-600 shadow-lg rounded overflow-hidden">
       <div v-if="data.length == 0" class="bg-white dark:bg-gray-800 dark:border-gray-800 py-5 px-5 shadow-md min-h-[58px] flex flex-col justify-center items-center">
         <img
           src="/images/no-data.png"
