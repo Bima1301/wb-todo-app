@@ -52,7 +52,7 @@
 import { defineProps } from "vue";
 import { Icon } from "@iconify/vue";
 
-const props = defineProps({
+defineProps({
   page: Number,
   totalPage: Number,
   totalDataLeft: Number,
